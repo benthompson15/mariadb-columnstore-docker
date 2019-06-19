@@ -8,7 +8,7 @@ RUN export USER=root && \
     groupadd -r mysql && \
     useradd -r -g mysql mysql && \
     yum -y install epel-release && \
-    yum -y install expect zlib rsyslog libaio boost file sudo libnl net-tools sysvinit-tools runit which psmisc lsof snappy rsync pwgen bind-utils && \
+    yum -y install expect zlib rsyslog libaio boost file sudo libnl net-tools sysvinit-tools runit which psmisc lsof snappy rsync pwgen bind-utils openssh-server openssh-clients && \
     yum -y install mariadb-columnstore-client mariadb-columnstore-common mariadb-columnstore-libs mariadb-columnstore-platform mariadb-columnstore-server mariadb-columnstore-shared mariadb-columnstore-storage-engine && \
     yum clean all && \
     rm -rf /var/cache/yum && \
