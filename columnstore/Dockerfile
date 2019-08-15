@@ -1,5 +1,10 @@
 FROM centos:7
 
+ARG VERSION
+ARG GIT_COMMIT
+ARG GIT_TREE_STATE
+ARG BUILD_TIME
+
 COPY mariadb-columnstore.repo runit.repo /etc/yum.repos.d/
 
 # additional dependencies for docker image
@@ -19,7 +24,9 @@ RUN export USER=root && \
     ln -s /usr/local/mariadb/columnstore/lib/is_columnstore_columns.so.1.0.0 /usr/local/mariadb/columnstore/mysql/lib/plugin/is_columnstore_columns.so && \
     ln -s /usr/local/mariadb/columnstore/lib/is_columnstore_extents.so.1.0.0 /usr/local/mariadb/columnstore/mysql/lib/plugin/is_columnstore_extents.so && \
     ln -s /usr/local/mariadb/columnstore/lib/is_columnstore_files.so.1.0.0 /usr/local/mariadb/columnstore/mysql/lib/plugin/is_columnstore_files.so && \
-    chown -R mysql:mysql /usr/local/mariadb/columnstore/mysql
+    chown -R mysql:mysql /usr/local/mariadb/columnstore/mysql && \
+    if [ ! -z $VERSION ] && [ ! -z $GIT_COMMIT ] && [ ! -z $BUILD_TIME ]; then \
+       echo "Version:    $VERSION\nGit commit: $GIT_COMMIT$GIT_TREE_STATE\nBuilt:      $BUILD_TIME" > /opt/image_details; fi
 
 COPY service /etc/service/
 COPY dbinit runit_bootstrap wait_for_columnstore_active /usr/sbin/
