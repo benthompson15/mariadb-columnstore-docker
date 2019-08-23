@@ -15,7 +15,7 @@ The following are required:
 
 To build the latest MariaDB ColumnStore version run the following command:
 ```
-docker build -t mariadb/columnstore:latest .
+make build-image
 ```
 
 To run MariaDB ColumnStore run the following command:
